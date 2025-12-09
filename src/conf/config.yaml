@@ -5,6 +5,7 @@ defaults:
 data_base_dir: data/
 seed: 42
 debug: False
+save_model: False
 
 hydra:
   job:

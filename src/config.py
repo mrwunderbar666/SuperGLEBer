@@ -45,6 +45,7 @@ class SuperGLEBerConfig:
     data_base_dir: str
     seed: int
     debug: bool
+    save_model: bool
     task: TaskConfig
     model: ModelConfig
     train_args: TrainArgs
