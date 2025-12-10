@@ -114,6 +114,7 @@ def training(cfg: DictConfig) -> None:
     logger.info("loading and tokenizing dataset")
     qa_ds = load_from_disk(cfg.task.corpus_args.data_folder)
     if cfg["debug"]:
+        logger.info("Debug mode active. Taking small sample.")
         for split in qa_ds.keys():
             qa_ds[split] = qa_ds[split].shuffle().take(100)
 
@@ -240,6 +241,7 @@ def training(cfg: DictConfig) -> None:
     eval_results = trainer.evaluate()
     logger.info(f"eval results: {eval_results}")
     if cfg["save_model"]:
-        destination: Path = Path.cwd() / "models" / cfg.model.model_name.replace("/", "_") / cfg.task.task_name
+        destination = Path.cwd() / "models" / cfg.model.model_name.replace("/", "_") / cfg.task.task_name
+        logger.info(f"Saving model to: {destination}")
         destination.mkdir(exist_ok=True, parents=True)
-        trainer.save_model(Path.cwd())
+        trainer.save_model(destination)
