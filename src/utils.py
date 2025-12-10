@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import torch
 from loguru import logger
-from omegaconf import DictConfig
+from omegaconf import DictConfig, OmegaConf
 from peft import LoraConfig, TaskType, get_peft_model, prepare_model_for_kbit_training
 from transformers import BitsAndBytesConfig
 
@@ -28,7 +28,7 @@ def get_max_seq_length(cfg: DictConfig) -> int:
 def get_peft_config(cfg: DictConfig) -> LoraConfig:
     peft_config = LoraConfig(**cfg.train_procedure.peft_config)
     if "peft_target_modules" in cfg.model:
-        peft_config.target_modules = cfg.model.peft_target_modules.to_object()
+        peft_config.target_modules = OmegaConf.to_object(cfg.model.peft_target_modules)
     if peft_config.task_type == "???":
         from peft.utils.peft_types import TaskType
 
