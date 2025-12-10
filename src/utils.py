@@ -28,7 +28,7 @@ def get_max_seq_length(cfg: DictConfig) -> int:
 def get_peft_config(cfg: DictConfig) -> LoraConfig:
     peft_config = LoraConfig(**cfg.train_procedure.peft_config)
     if "peft_target_modules" in cfg.model:
-        peft_config.target_modules = cfg.model.peft_target_modules
+        peft_config.target_modules = list(cfg.model.peft_target_modules)
     if peft_config.task_type == "???":
         from peft.utils.peft_types import TaskType
 
