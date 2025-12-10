@@ -19,7 +19,7 @@ def get_max_seq_length(cfg: DictConfig) -> int:
     possible_attrs = [getattr(model_conf, attr, None) for attr in possible_attrs]
     possible_attrs = [attr for attr in possible_attrs if attr is not None] + [512]
 
-    selected_attr = min(possible_attrs)
+    selected_attr = max(possible_attrs)
     logger.info(f"Using {selected_attr} as max_seq_length")
 
     return selected_attr
